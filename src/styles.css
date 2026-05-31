@@ -113,6 +113,7 @@ body {
   min-height: 100vh;
   background: var(--page-bg);
   color: rgb(var(--color-ink));
+  overflow-x: hidden;
 }
 
 :lang(ar) body {
@@ -259,4 +260,38 @@ textarea {
 
 .status-dot {
   @apply h-2.5 w-2.5 rounded-full;
+}
+
+@media (max-width: 420px) {
+  html {
+    font-size: 15px;
+  }
+
+  :lang(ar) .hero-title {
+    font-size: clamp(2.15rem, 10vw, 3.35rem);
+    line-height: 1.04;
+    letter-spacing: -0.04em;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    min-height: 3.15rem;
+  }
+
+  .glass-card,
+  .surface-card,
+  .premium-panel {
+    border-radius: 1.45rem;
+  }
+
+  .theme-select {
+    min-height: 2.7rem;
+  }
+}
+
+@media (max-width: 360px) {
+  :lang(ar) .hero-title {
+    font-size: 2rem;
+  }
 }
