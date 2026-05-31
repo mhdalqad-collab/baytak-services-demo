@@ -9,7 +9,7 @@ export default function ServiceCard({ service, to }) {
   return (
     <Link
       to={to || `/request?service=${encodeURIComponent(service.name)}`}
-      className="group flex h-full flex-col rounded-[2rem] border border-white/75 bg-white/80 p-5 shadow-card transition hover:-translate-y-1 hover:bg-white"
+      className="surface-card group flex h-full flex-col rounded-[2rem] p-5 shadow-card transition hover:-translate-y-1"
     >
       <div className={`mb-5 grid h-14 w-14 place-items-center rounded-2xl ${service.accent}`}>
         <Icon size={24} />

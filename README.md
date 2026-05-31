@@ -16,6 +16,9 @@ Baytak Services is a front-end prototype and simulator for a home maintenance de
 - Provider dashboard with accept/reject actions
 - Admin dashboard with stats, provider approval, and category management
 - English/Arabic language selector with RTL layout support
+- AI-style cost estimation, issue detection, and provider match scoring
+- Fake dispatch map with animated provider movement
+- Emergency request mode and richer provider/admin dashboards
 
 ## Run locally
 

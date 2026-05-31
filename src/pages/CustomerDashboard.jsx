@@ -40,10 +40,10 @@ export default function CustomerDashboard({ activeRequest, requests, reviews }) 
           </div>
           <p className="mt-4 leading-8 text-ink/65">{activeRequest?.description}</p>
           <div className="mt-6 grid gap-3 text-sm font-bold text-ink/70 sm:grid-cols-2">
-            <span className="rounded-2xl bg-white/80 p-4">{t("common.location")}: {locationName(activeRequest?.location)}</span>
-            <span className="rounded-2xl bg-white/80 p-4">{t("customer.urgency")}: {statusName(activeRequest?.urgency)}</span>
-            <span className="rounded-2xl bg-white/80 p-4">{t("customer.preferred")}: {activeRequest?.preferredTime}</span>
-            <span className="rounded-2xl bg-white/80 p-4">{t("customer.photo")}: {activeRequest?.photoName || t("customer.placeholder")}</span>
+            <span className="surface-muted rounded-2xl p-4">{t("common.location")}: {locationName(activeRequest?.location)}</span>
+            <span className="surface-muted rounded-2xl p-4">{t("customer.urgency")}: {statusName(activeRequest?.urgency)}</span>
+            <span className="surface-muted rounded-2xl p-4">{t("customer.preferred")}: {activeRequest?.preferredTime}</span>
+            <span className="surface-muted rounded-2xl p-4">{t("customer.photo")}: {activeRequest?.photoName || t("customer.placeholder")}</span>
           </div>
           <Link to={activeRequest?.status === "Matching" ? "/matching" : "/tracking"} className="btn-primary mt-6">
             {t("customer.continue")}
@@ -53,7 +53,7 @@ export default function CustomerDashboard({ activeRequest, requests, reviews }) 
 
         <div>
           <div className="mb-4 flex items-center justify-between gap-3">
-            <h2 className="font-display text-3xl font-bold">{t("customer.previousRequests")}</h2>
+            <h2 className="font-display text-3xl font-bold">Maintenance history</h2>
             <Link to="/request" className="text-sm font-extrabold text-lagoon">
               {t("customer.createDirectly")}
             </Link>

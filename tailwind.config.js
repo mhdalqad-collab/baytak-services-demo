@@ -4,21 +4,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: "#102225",
-        lagoon: "#0f766e",
-        palm: "#14b8a6",
-        sand: "#f5efe2",
-        clay: "#c46b35",
-        date: "#7c4a2d",
-        mist: "#e6f4f1"
+        ink: "rgb(var(--color-ink) / <alpha-value>)",
+        lagoon: "rgb(var(--color-primary) / <alpha-value>)",
+        palm: "rgb(var(--color-soft) / <alpha-value>)",
+        sand: "rgb(var(--color-shell) / <alpha-value>)",
+        clay: "rgb(var(--color-accent) / <alpha-value>)",
+        date: "rgb(var(--color-accent-deep) / <alpha-value>)",
+        mist: "rgb(var(--color-mist) / <alpha-value>)"
       },
       fontFamily: {
         display: ["Fraunces", "Georgia", "serif"],
         sans: ["Manrope", "Segoe UI", "sans-serif"]
       },
       boxShadow: {
-        soft: "0 24px 70px rgba(16, 34, 37, 0.12)",
-        card: "0 18px 45px rgba(15, 118, 110, 0.12)"
+        soft: "0 24px 70px rgba(15, 23, 42, 0.13)",
+        card: "0 18px 45px rgba(37, 99, 235, 0.12)"
       },
       animation: {
         float: "float 7s ease-in-out infinite",

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, Clock, MapPin, X } from "lucide-react";
+import { BadgeCheck, Check, Clock, Star, TrendingUp, Wallet, X } from "lucide-react";
 import Badge from "../components/Badge";
 import SectionHeader from "../components/SectionHeader";
 import StatCard from "../components/StatCard";
@@ -29,8 +29,8 @@ export default function ProviderDashboard() {
 
       <div className="grid gap-4 md:grid-cols-3">
         <StatCard label={t("providerDash.incoming")} value={incomingRequests.length} trend={t("providerDash.liveQueue")} icon={Clock} />
-        <StatCard label={t("providerDash.activeJobs")} value={activeJobs.length} trend={t("providerDash.localState")} icon={Check} />
-        <StatCard label={t("providerDash.completedJobs")} value={completedJobs.length} trend={t("providerDash.today")} icon={MapPin} />
+        <StatCard label="Provider rating" value="4.8" trend="Top 12%" icon={Star} />
+        <StatCard label="Month earnings" value="1,840 OMR" trend="+18%" icon={Wallet} />
       </div>
 
       <section className="mt-8 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
@@ -40,7 +40,7 @@ export default function ProviderDashboard() {
             {incomingRequests.map((request) => {
               const status = requestStatuses[request.id] || "Pending";
               return (
-                <article key={request.id} className="rounded-[2rem] border border-white/70 bg-white/80 p-5 shadow-card">
+                <article key={request.id} className="surface-card rounded-[2rem] p-5 shadow-card">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-ink/40">{request.id}</p>
@@ -50,10 +50,12 @@ export default function ProviderDashboard() {
                   </div>
                   <p className="mt-4 text-sm leading-7 text-ink/65">{request.description}</p>
                   <div className="mt-5 grid gap-3 text-sm font-bold text-ink/65 sm:grid-cols-2">
-                    <span className="rounded-2xl bg-mist p-3">{t("common.customer")}: {request.customer}</span>
-                    <span className="rounded-2xl bg-mist p-3">{t("common.location")}: {request.location}</span>
-                    <span className="rounded-2xl bg-mist p-3">{t("common.preferred")}: {request.preferredTime}</span>
-                    <span className="rounded-2xl bg-mist p-3">{t("providerDash.decision")}: {statusName(status)}</span>
+                    <span className="surface-muted rounded-2xl p-3">{t("common.customer")}: {request.customer}</span>
+                    <span className="surface-muted rounded-2xl p-3">{t("common.location")}: {request.location}</span>
+                    <span className="surface-muted rounded-2xl p-3">{t("common.preferred")}: {request.preferredTime}</span>
+                    <span className="surface-muted rounded-2xl p-3">{t("providerDash.decision")}: {statusName(status)}</span>
+                    <span className="surface-muted rounded-2xl p-3">Distance: {request.distanceKm} km</span>
+                    <span className="surface-muted rounded-2xl p-3">Suggested price: {request.suggestedPrice} {t("common.omr")}</span>
                   </div>
                   <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                     <button className="btn-primary" onClick={() => setStatus(request.id, "Accepted")}>
@@ -72,29 +74,55 @@ export default function ProviderDashboard() {
         </div>
 
         <aside className="space-y-5">
+          <div className="rounded-[2.4rem] bg-[linear-gradient(135deg,#111827,#1e3a8a)] p-6 text-white shadow-soft">
+            <div className="flex items-center gap-3">
+              <BadgeCheck className="text-palm" />
+              <div>
+                <p className="text-sm font-bold text-white/55">Provider profile</p>
+                <h2 className="font-display text-3xl font-bold">OmanFix Technical Services</h2>
+              </div>
+            </div>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {["Verified", "Licensed", "Insured", "Fast Response", "Top Rated"].map((badge) => (
+                <span key={badge} className="rounded-full bg-white/10 px-3 py-2 text-xs font-black text-white/80">
+                  {badge}
+                </span>
+              ))}
+            </div>
+            <div className="mt-5 grid grid-cols-2 gap-3 text-sm font-bold">
+              <div className="rounded-2xl bg-white/10 p-4">
+                <Star size={16} className="mb-2 text-clay" fill="currentColor" />
+                4.8 rating
+              </div>
+              <div className="rounded-2xl bg-white/10 p-4">
+                <TrendingUp size={16} className="mb-2 text-palm" />
+                1,280 jobs
+              </div>
+            </div>
+          </div>
           <div className="glass-card rounded-[2.4rem] p-6">
             <h2 className="font-display text-3xl font-bold">{t("providerDash.activeJobs")}</h2>
             <div className="mt-5 grid gap-3">
               {activeJobs.length ? (
                 activeJobs.map((job) => (
-                  <div key={job.id} className="rounded-2xl bg-white/80 p-4">
+                  <div key={job.id} className="surface-muted rounded-2xl p-4">
                     <p className="font-black">{serviceName(job.serviceType)}</p>
                     <p className="mt-1 text-sm font-bold text-ink/55">{locationName(job.location)}</p>
                   </div>
                 ))
               ) : (
-                <p className="rounded-2xl bg-white/80 p-4 text-sm font-bold text-ink/55">{t("providerDash.emptyActive")}</p>
+                <p className="surface-muted rounded-2xl p-4 text-sm font-bold text-ink/55">{t("providerDash.emptyActive")}</p>
               )}
             </div>
           </div>
 
-          <div className="rounded-[2.4rem] bg-ink p-6 text-white shadow-soft">
+          <div className="surface-card rounded-[2.4rem] p-6 shadow-card">
             <h2 className="font-display text-3xl font-bold">{t("providerDash.completedJobs")}</h2>
             <div className="mt-5 grid gap-3">
               {completedJobs.map((job) => (
-                <div key={job.id} className="rounded-2xl bg-white/10 p-4">
+                <div key={job.id} className="surface-muted rounded-2xl p-4">
                   <p className="font-black">{serviceName(job.serviceType)}</p>
-                  <p className="mt-1 text-sm font-bold text-white/55">
+                  <p className="mt-1 text-sm font-bold text-ink/55">
                     {job.customer} - {job.price} {t("common.omr")}
                   </p>
                 </div>

@@ -11,7 +11,7 @@ import RatingPage from "./pages/RatingPage";
 import RequestFormPage from "./pages/RequestFormPage";
 import RequestTrackingPage from "./pages/RequestTrackingPage";
 import ServiceSelectionPage from "./pages/ServiceSelectionPage";
-import { createRequestId, generateOffers } from "./utils/simulation";
+import { createRequestId, detectIssueFromPhoto, estimateCost, generateOffers } from "./utils/simulation";
 import { useState } from "react";
 
 const seedRequest = {
@@ -30,6 +30,7 @@ export default function App() {
   const [requests, setRequests] = useState(previousRequests);
   const [activeRequest, setActiveRequest] = useState(seedRequest);
   const [offers, setOffers] = useState(() => generateOffers(seedRequest, providers));
+  const [costEstimate, setCostEstimate] = useState(() => estimateCost(seedRequest));
   const [selectedOffer, setSelectedOffer] = useState(null);
   const [trackingStep, setTrackingStep] = useState(0);
   const [reviews, setReviews] = useState([]);
@@ -38,11 +39,13 @@ export default function App() {
     const nextRequest = {
       ...formData,
       id: createRequestId(),
-      status: "Matching"
+      status: "Matching",
+      aiDetection: detectIssueFromPhoto(formData.photoName, formData.serviceType)
     };
     setActiveRequest(nextRequest);
     setSelectedOffer(null);
     setTrackingStep(0);
+    setCostEstimate(estimateCost(nextRequest));
     setOffers(generateOffers(nextRequest, providers));
     setRequests((current) => [{ ...nextRequest, date: "Today", provider: "Matching providers", price: "-" }, ...current]);
     navigate("/matching");
@@ -56,7 +59,7 @@ export default function App() {
   }
 
   function completeJob() {
-    setTrackingStep(4);
+    setTrackingStep(5);
     setActiveRequest((current) => ({ ...current, status: "Completed" }));
   }
 
@@ -79,8 +82,8 @@ export default function App() {
         <Route path="/customer" element={<CustomerDashboard activeRequest={activeRequest} requests={requests} reviews={reviews} />} />
         <Route path="/services" element={<ServiceSelectionPage />} />
         <Route path="/request" element={<RequestFormPage onSubmit={submitRequest} />} />
-        <Route path="/matching" element={<MatchingPage request={activeRequest} />} />
-        <Route path="/offers" element={<OffersPage request={activeRequest} offers={offers} onAccept={acceptOffer} />} />
+        <Route path="/matching" element={<MatchingPage request={activeRequest} costEstimate={costEstimate} />} />
+        <Route path="/offers" element={<OffersPage request={activeRequest} offers={offers} costEstimate={costEstimate} onAccept={acceptOffer} />} />
         <Route
           path="/tracking"
           element={
@@ -88,6 +91,7 @@ export default function App() {
               <RequestTrackingPage
                 request={activeRequest}
                 offer={selectedOffer}
+                costEstimate={costEstimate}
                 currentStep={trackingStep}
                 onStepChange={setTrackingStep}
                 onComplete={completeJob}

@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader2, RadioTower } from "lucide-react";
 import ProviderStatusCard from "../components/ProviderStatusCard";
+import CostEstimateCard from "../components/CostEstimateCard";
 import SectionHeader from "../components/SectionHeader";
 import { providers } from "../data/mockData";
 import { useLanguage } from "../i18n/LanguageContext";
 import { nextProviderStatuses } from "../utils/simulation";
 
-export default function MatchingPage({ request }) {
+export default function MatchingPage({ request, costEstimate }) {
   const { locationName, serviceName, statusName, t } = useLanguage();
   const [step, setStep] = useState(0);
 
@@ -35,26 +36,29 @@ export default function MatchingPage({ request }) {
       />
 
       <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
-        <aside className="glass-card rounded-[2.4rem] p-6">
-          <div className="flex items-center gap-4">
-            <div className="grid h-14 w-14 place-items-center rounded-2xl bg-lagoon text-white">
-              {ready ? <RadioTower size={26} /> : <Loader2 size={26} className="animate-spin" />}
+        <aside className="space-y-5">
+          <div className="glass-card rounded-[2.4rem] p-6">
+            <div className="flex items-center gap-4">
+              <div className="grid h-14 w-14 place-items-center rounded-2xl bg-lagoon text-white">
+                {ready ? <RadioTower size={26} /> : <Loader2 size={26} className="animate-spin" />}
+              </div>
+              <div>
+                <p className="text-sm font-extrabold uppercase tracking-[0.2em] text-lagoon">{request?.id}</p>
+                <h2 className="text-2xl font-black">{serviceName(request?.serviceType)}</h2>
+              </div>
             </div>
-            <div>
-              <p className="text-sm font-extrabold uppercase tracking-[0.2em] text-lagoon">{request?.id}</p>
-              <h2 className="text-2xl font-black">{serviceName(request?.serviceType)}</h2>
+            <p className="mt-5 leading-8 text-ink/65">{request?.description}</p>
+            <div className="mt-6 grid gap-3 text-sm font-bold text-ink/70">
+              <span className="surface-muted rounded-2xl p-4">{t("common.location")}: {locationName(request?.location)}</span>
+              <span className="surface-muted rounded-2xl p-4">{t("customer.urgency")}: {statusName(request?.urgency)}</span>
+              <span className="surface-muted rounded-2xl p-4">{t("request.preferredTime")}: {request?.preferredTime}</span>
+            </div>
+            <div className="premium-panel mt-6 rounded-[1.7rem] p-5">
+              <p className="text-4xl font-black">{acceptedCount}</p>
+              <p className="mt-1 text-sm font-bold text-white/60">{t("matching.acceptedSoFar")}</p>
             </div>
           </div>
-          <p className="mt-5 leading-8 text-ink/65">{request?.description}</p>
-          <div className="mt-6 grid gap-3 text-sm font-bold text-ink/70">
-            <span className="rounded-2xl bg-white/80 p-4">{t("common.location")}: {locationName(request?.location)}</span>
-            <span className="rounded-2xl bg-white/80 p-4">{t("customer.urgency")}: {statusName(request?.urgency)}</span>
-            <span className="rounded-2xl bg-white/80 p-4">{t("request.preferredTime")}: {request?.preferredTime}</span>
-          </div>
-          <div className="mt-6 rounded-[1.7rem] bg-ink p-5 text-white">
-            <p className="text-4xl font-black">{acceptedCount}</p>
-            <p className="mt-1 text-sm font-bold text-white/60">{t("matching.acceptedSoFar")}</p>
-          </div>
+          <CostEstimateCard estimate={costEstimate} request={request} />
         </aside>
 
         <section className="grid gap-4 sm:grid-cols-2">

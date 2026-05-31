@@ -1,6 +1,6 @@
 export default function StatCard({ label, value, trend, icon: Icon }) {
   return (
-    <div className="rounded-[2rem] border border-white/70 bg-white/80 p-5 shadow-card">
+    <div className="surface-card rounded-[2rem] p-5 shadow-card">
       <div className="mb-6 flex items-start justify-between gap-4">
         <div className="grid h-11 w-11 place-items-center rounded-2xl bg-mist text-lagoon">
           <Icon size={21} />

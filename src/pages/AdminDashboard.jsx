@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { CheckCircle2, Plus, Settings2 } from "lucide-react";
+import { CheckCircle2, Plus, Settings2, TrendingUp } from "lucide-react";
 import Badge from "../components/Badge";
 import SectionHeader from "../components/SectionHeader";
 import StatCard from "../components/StatCard";
-import { adminStats, providers, serviceCategories } from "../data/mockData";
+import { adminStats, providers, serviceCategories, servicePerformance } from "../data/mockData";
 import { useLanguage } from "../i18n/LanguageContext";
 
 export default function AdminDashboard() {
@@ -50,7 +50,7 @@ export default function AdminDashboard() {
             {providers.map((provider) => {
               const approved = providerApprovals[provider.id];
               return (
-                <div key={provider.id} className="rounded-[1.7rem] bg-white/80 p-4">
+                <div key={provider.id} className="surface-muted rounded-[1.7rem] p-4">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <p className="text-sm font-black">{provider.name}</p>
@@ -72,7 +72,7 @@ export default function AdminDashboard() {
         </article>
 
         <aside className="space-y-5">
-          <article className="rounded-[2.4rem] bg-ink p-6 text-white shadow-soft">
+          <article className="premium-panel rounded-[2.4rem] p-6 shadow-soft">
             <div className="mb-5 flex items-center gap-3">
               <Settings2 className="text-palm" />
               <h2 className="font-display text-3xl font-bold">{t("admin.categories")}</h2>
@@ -97,7 +97,7 @@ export default function AdminDashboard() {
             </div>
           </article>
 
-          <article className="rounded-[2.4rem] border border-white/70 bg-white/80 p-6 shadow-card">
+          <article className="surface-card rounded-[2.4rem] p-6 shadow-card">
             <h2 className="font-display text-3xl font-bold">{t("admin.simpleStats")}</h2>
             <div className="mt-5 space-y-4">
               {[
@@ -119,6 +119,30 @@ export default function AdminDashboard() {
             </div>
           </article>
         </aside>
+      </section>
+
+      <section className="surface-card mt-8 rounded-[2.4rem] p-6 shadow-card">
+        <div className="mb-6 flex items-center gap-3">
+          <TrendingUp className="text-lagoon" />
+          <h2 className="font-display text-3xl font-bold">Service category performance</h2>
+        </div>
+        <div className="grid gap-4 lg:grid-cols-4">
+          {servicePerformance.map((item) => (
+            <article key={item.name} className="surface-muted rounded-[1.8rem] p-5">
+              <p className="font-black">{serviceName(item.name)}</p>
+              <div className="mt-4 space-y-3 text-sm font-bold text-ink/65">
+                <div className="flex justify-between"><span>Requests</span><span>{item.requests}</span></div>
+                <div className="flex justify-between"><span>Revenue</span><span>{item.revenue} OMR</span></div>
+                <div>
+                  <div className="mb-2 flex justify-between"><span>Satisfaction</span><span>{item.satisfaction}%</span></div>
+                  <div className="h-2 rounded-full bg-white">
+                    <div className="h-2 rounded-full bg-lagoon" style={{ width: `${item.satisfaction}%` }} />
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
     </div>
   );

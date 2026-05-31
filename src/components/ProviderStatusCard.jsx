@@ -1,4 +1,4 @@
-import { MapPin, Star } from "lucide-react";
+import { BadgeCheck, MapPin, Star } from "lucide-react";
 import Badge from "./Badge";
 import { useLanguage } from "../i18n/LanguageContext";
 
@@ -6,7 +6,7 @@ export default function ProviderStatusCard({ provider, status }) {
   const { locationName, providerType, serviceName } = useLanguage();
 
   return (
-    <article className="rounded-[2rem] border border-white/70 bg-white/80 p-5 shadow-card">
+    <article className="surface-card rounded-[2rem] p-5 shadow-card">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-ink/40">{providerType(provider.type)}</p>
@@ -15,6 +15,12 @@ export default function ProviderStatusCard({ provider, status }) {
         <Badge tone={status}>{status}</Badge>
       </div>
       <div className="mt-5 flex flex-wrap gap-2">
+        {provider.badges?.slice(0, 3).map((badge) => (
+          <span key={badge} className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-ink/65">
+            <BadgeCheck size={13} />
+            {badge}
+          </span>
+        ))}
         {provider.specialties.slice(0, 3).map((specialty) => (
           <span key={specialty} className="rounded-full bg-mist px-3 py-1 text-xs font-bold text-lagoon">
             {serviceName(specialty)}

@@ -4,6 +4,7 @@ import ServiceCard from "../components/ServiceCard";
 import StatCard from "../components/StatCard";
 import { serviceCategories } from "../data/mockData";
 import { useLanguage } from "../i18n/LanguageContext";
+import { useTheme } from "../theme/ThemeContext";
 
 const valueProps = [
   {
@@ -28,6 +29,7 @@ const heroStats = [
 
 export default function LandingPage() {
   const { statusName, t } = useLanguage();
+  const { theme, setTheme, themeOptions } = useTheme();
   const liveSteps = ["landing.step1", "landing.step2", "landing.step3", "landing.step4"];
 
   return (
@@ -36,7 +38,7 @@ export default function LandingPage() {
         <div className="absolute inset-x-0 top-0 -z-10 h-[42rem] pattern-grid opacity-70" />
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="animate-rise">
-            <span className="inline-flex rounded-full border border-lagoon/20 bg-white/75 px-4 py-2 text-sm font-extrabold text-lagoon shadow-sm">
+            <span className="surface-card inline-flex rounded-full px-4 py-2 text-sm font-extrabold text-lagoon shadow-sm">
               {t("landing.kicker")}
             </span>
             <h1 className="mt-6 font-display text-5xl font-bold leading-[0.95] tracking-tight text-ink sm:text-7xl">
@@ -61,18 +63,18 @@ export default function LandingPage() {
 
           <div className="relative animate-float">
             <div className="glass-card rounded-[2.6rem] p-5">
-              <div className="rounded-[2rem] bg-ink p-5 text-white">
+              <div className="rounded-[2rem] bg-[linear-gradient(135deg,#111827_0%,#1e3a8a_62%,#92400e_140%)] p-5 text-white">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-bold text-white/55">{t("landing.liveRequest")}</p>
                     <h2 className="mt-1 text-2xl font-black">{t("landing.liveTitle")}</h2>
                   </div>
-                  <span className="rounded-full bg-clay px-3 py-1 text-xs font-black">{statusName("Urgent")}</span>
+                  <span className="rounded-full bg-amber-500 px-3 py-1 text-xs font-black text-white">{statusName("Urgent")}</span>
                 </div>
                 <div className="mt-6 grid gap-3">
                   {liveSteps.map((item, index) => (
                       <div key={item} className="flex items-center gap-3 rounded-2xl bg-white/10 p-3">
-                        <span className="grid h-8 w-8 place-items-center rounded-full bg-palm/20 text-sm font-black">
+                        <span className="grid h-8 w-8 place-items-center rounded-full bg-blue-300/20 text-sm font-black">
                           {index + 1}
                         </span>
                         <span className="text-sm font-bold">{t(item)}</span>
@@ -103,6 +105,40 @@ export default function LandingPage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="grid gap-4 rounded-[2.6rem] bg-[linear-gradient(135deg,#111827,#1e3a8a)] p-5 text-white shadow-soft lg:grid-cols-4">
+          {["AI price estimate", "Provider match score", "Emergency dispatch", "Live tracking map"].map((item) => (
+            <div key={item} className="rounded-[1.8rem] bg-white/10 p-5">
+              <p className="text-sm font-black text-blue-200">Smart marketplace</p>
+              <h3 className="mt-2 text-xl font-black">{item}</h3>
+              <p className="mt-2 text-sm leading-6 text-white/60">Mocked in frontend for investor-ready simulation.</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div className="glass-card flex flex-col gap-4 rounded-[2.2rem] p-5 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-sm font-extrabold uppercase tracking-[0.22em] text-lagoon">{t("theme.label")}</p>
+            <h2 className="mt-1 font-display text-3xl font-bold">Choose the look that fits your demo.</h2>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {themeOptions.map((option) => (
+              <button
+                key={option.value}
+                className={`rounded-full px-4 py-2 text-sm font-black transition ${
+                  theme === option.value ? "bg-lagoon text-white shadow-card" : "theme-chip"
+                }`}
+                onClick={() => setTheme(option.value)}
+              >
+                {t(option.labelKey)}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mb-7 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
@@ -122,14 +158,14 @@ export default function LandingPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-12 pb-28 sm:px-6 lg:px-8">
         <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="rounded-[2.4rem] bg-ink p-8 text-white shadow-soft">
-            <UsersRound size={36} className="text-palm" />
+          <div className="rounded-[2.4rem] bg-[linear-gradient(135deg,#111827,#1e3a8a)] p-8 text-white shadow-soft">
+            <UsersRound size={36} className="text-blue-200" />
             <h2 className="mt-8 font-display text-4xl font-bold">{t("landing.marketplaceTitle")}</h2>
             <p className="mt-4 leading-8 text-white/66">{t("landing.marketplaceText")}</p>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {valueProps.map((item, index) => (
-              <article key={item.titleKey} className="rounded-[2rem] border border-white/70 bg-white/80 p-6 shadow-card">
+              <article key={item.titleKey} className="surface-card rounded-[2rem] p-6 shadow-card">
                 <div className="grid h-11 w-11 place-items-center rounded-2xl bg-mist font-black text-lagoon">
                   {index + 1}
                 </div>

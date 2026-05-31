@@ -1,11 +1,12 @@
 import Badge from "./Badge";
 import { useLanguage } from "../i18n/LanguageContext";
+import { Star } from "lucide-react";
 
 export default function RequestCard({ request }) {
   const { locationName, serviceName, t } = useLanguage();
 
   return (
-    <article className="rounded-[2rem] border border-white/70 bg-white/80 p-5 shadow-card">
+    <article className="surface-card rounded-[2rem] p-5 shadow-card">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-ink/40">{request.id}</p>
@@ -29,6 +30,13 @@ export default function RequestCard({ request }) {
         <div>
           <dt className="font-extrabold text-ink">{t("common.price")}</dt>
           <dd>{request.price} {request.price === "-" ? "" : t("common.omr")}</dd>
+        </div>
+        <div>
+          <dt className="font-extrabold text-ink">Rating</dt>
+          <dd className="inline-flex items-center gap-1">
+            <Star size={14} className="text-clay" fill="currentColor" />
+            {request.rating || "Pending"}
+          </dd>
         </div>
       </dl>
     </article>
