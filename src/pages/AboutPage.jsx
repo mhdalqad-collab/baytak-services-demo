@@ -1,4 +1,4 @@
-import { BadgeCheck, BriefcaseBusiness, Globe2, Lightbulb, MapPin, Sparkles, UserRound } from "lucide-react";
+import { BadgeCheck, BriefcaseBusiness, Globe2, Lightbulb, Mail, MapPin, Phone, Sparkles, UserRound } from "lucide-react";
 import SectionHeader from "../components/SectionHeader";
 import { useLanguage } from "../i18n/LanguageContext";
 
@@ -10,6 +10,9 @@ const teamMembers = [
     bioKey: "about.mohammedBio",
     image: "/about/mohammed-al-qaderi.png",
     imagePosition: "object-[center_28%]",
+    phone: "+968 9191 8769",
+    phoneHref: "tel:+96891918769",
+    email: "mhd.alqad@gmail.com",
     tags: ["CTO", "System builder", "Product architecture"]
   },
   {
@@ -19,6 +22,9 @@ const teamMembers = [
     bioKey: "about.partnerBio",
     image: "/about/hussam-yehya.jpg",
     imagePosition: "object-[center_42%]",
+    phone: "+968 9363 0500",
+    phoneHref: "tel:+96893630500",
+    email: "hussamkhatoon@hotmail.com",
     tags: ["Growth strategy", "Marketing", "Partnerships"]
   }
 ];
@@ -117,10 +123,18 @@ export default function AboutPage() {
                     </span>
                   </div>
 
-                  <div className="mt-auto pt-7">
-                    <span className="inline-flex rounded-full bg-lagoon/10 px-4 py-2 text-sm font-extrabold text-lagoon">
-                      {t("about.publicProfile")}
-                    </span>
+                  <div className="mt-auto grid gap-3 pt-7 sm:grid-cols-2">
+                    <a href={member.phoneHref} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-lagoon px-4 py-3 text-sm font-extrabold text-white shadow-card transition hover:-translate-y-0.5 hover:bg-ink">
+                      <Phone size={16} />
+                      {t("about.call")}
+                    </a>
+                    <a href={`mailto:${member.email}`} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-ink/10 bg-mist px-4 py-3 text-sm font-extrabold text-ink transition hover:-translate-y-0.5 hover:border-lagoon/30 hover:text-lagoon">
+                      <Mail size={16} />
+                      {t("about.email")}
+                    </a>
+                    <p className="text-xs font-bold leading-6 text-ink/45 sm:col-span-2">
+                      {member.phone} · {member.email}
+                    </p>
                   </div>
                 </div>
               </div>
