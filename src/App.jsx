@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import AppShell from "./components/AppShell";
 import { previousRequests, providers } from "./data/mockData";
+import AboutPage from "./pages/AboutPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import CustomerDashboard from "./pages/CustomerDashboard";
 import LandingPage from "./pages/LandingPage";
@@ -79,6 +80,7 @@ export default function App() {
     <AppShell>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/customer" element={<CustomerDashboard activeRequest={activeRequest} requests={requests} reviews={reviews} />} />
         <Route path="/services" element={<ServiceSelectionPage />} />
         <Route path="/request" element={<RequestFormPage onSubmit={submitRequest} />} />

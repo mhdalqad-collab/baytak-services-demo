@@ -1,11 +1,12 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Home, LayoutDashboard, Palette, ShieldCheck, Store, Wrench, X } from "lucide-react";
+import { Home, Info, LayoutDashboard, Palette, ShieldCheck, Store, Wrench, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "../i18n/LanguageContext";
 import { useTheme } from "../theme/ThemeContext";
 
 const navItems = [
   { to: "/", labelKey: "nav.home", icon: Home },
+  { to: "/about", labelKey: "nav.about", icon: Info },
   { to: "/customer", labelKey: "nav.customer", icon: LayoutDashboard },
   { to: "/provider", labelKey: "nav.provider", icon: Store },
   { to: "/admin", labelKey: "nav.admin", icon: ShieldCheck }
@@ -153,7 +154,7 @@ export default function AppShell({ children }) {
 
       <main className={isLanding ? "pb-28 md:pb-0" : "mx-auto max-w-7xl px-4 py-8 pb-28 sm:px-6 md:pb-8 lg:px-8"}>{children}</main>
 
-      <nav className="surface-card fixed inset-x-3 bottom-[calc(env(safe-area-inset-bottom)+0.75rem)] z-50 grid grid-cols-4 gap-1 rounded-[1.6rem] p-1.5 shadow-soft backdrop-blur-xl sm:gap-2 sm:rounded-[2rem] sm:p-2 md:hidden">
+      <nav className="surface-card fixed inset-x-3 bottom-[calc(env(safe-area-inset-bottom)+0.75rem)] z-50 grid grid-cols-5 gap-1 rounded-[1.6rem] p-1.5 shadow-soft backdrop-blur-xl sm:gap-2 sm:rounded-[2rem] sm:p-2 md:hidden">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
