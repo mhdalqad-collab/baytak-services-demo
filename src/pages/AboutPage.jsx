@@ -1,4 +1,4 @@
-import { ArrowDownToLine, BadgeCheck, BriefcaseBusiness, Globe2, Lightbulb, Mail, MapPin, Sparkles, UserRound } from "lucide-react";
+import { BadgeCheck, BriefcaseBusiness, Globe2, Lightbulb, MapPin, Sparkles, UserRound } from "lucide-react";
 import SectionHeader from "../components/SectionHeader";
 import { useLanguage } from "../i18n/LanguageContext";
 
@@ -9,16 +9,15 @@ const teamMembers = [
     locationKey: "about.mohammedLocation",
     bioKey: "about.mohammedBio",
     image: "/about/mohammed-al-qaderi.png",
-    resume: "/about/mohammed-al-qaderi-resume.pdf",
     tags: ["Product vision", "Frontend prototype", "Marketplace operations"]
   },
   {
-    name: "Future Co-Founder",
+    name: "Hussam Yehya",
     roleKey: "about.partnerRole",
     locationKey: "about.partnerLocation",
     bioKey: "about.partnerBio",
-    initials: "FC",
-    tags: ["Provider network", "Customer success", "Growth strategy"]
+    image: "/about/hussam-yehya.jpg",
+    tags: ["Growth strategy", "Marketing", "Partnerships"]
   }
 ];
 
@@ -116,21 +115,10 @@ export default function AboutPage() {
                     </span>
                   </div>
 
-                  <div className="mt-auto flex flex-col gap-3 pt-7 sm:flex-row">
-                    {member.resume ? (
-                      <a href={member.resume} target="_blank" rel="noreferrer" className="btn-primary">
-                        {t("about.viewResume")}
-                        <ArrowDownToLine size={17} />
-                      </a>
-                    ) : (
-                      <span className="btn-secondary cursor-default opacity-70">
-                        {t("about.profileComingSoon")}
-                      </span>
-                    )}
-                    <a href="mailto:hello@baytak.services" className="btn-secondary">
-                      {t("about.contact")}
-                      <Mail size={17} />
-                    </a>
+                  <div className="mt-auto pt-7">
+                    <span className="inline-flex rounded-full bg-lagoon/10 px-4 py-2 text-sm font-extrabold text-lagoon">
+                      {t("about.publicProfile")}
+                    </span>
                   </div>
                 </div>
               </div>
