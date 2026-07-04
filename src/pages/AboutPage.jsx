@@ -9,7 +9,8 @@ const teamMembers = [
     locationKey: "about.mohammedLocation",
     bioKey: "about.mohammedBio",
     image: "/about/mohammed-al-qaderi.png",
-    tags: ["Product vision", "Frontend prototype", "Marketplace operations"]
+    imagePosition: "object-[center_28%]",
+    tags: ["CTO", "System builder", "Product architecture"]
   },
   {
     name: "Hussam Yehya",
@@ -17,6 +18,7 @@ const teamMembers = [
     locationKey: "about.partnerLocation",
     bioKey: "about.partnerBio",
     image: "/about/hussam-yehya.jpg",
+    imagePosition: "object-[center_42%]",
     tags: ["Growth strategy", "Marketing", "Partnerships"]
   }
 ];
@@ -71,14 +73,14 @@ export default function AboutPage() {
 
         <div className="grid gap-5 lg:grid-cols-2">
           {teamMembers.map((member) => (
-            <article key={member.name} className="surface-card group overflow-hidden rounded-[2.4rem] shadow-card">
-              <div className="grid gap-0 md:grid-cols-[0.9fr_1.1fr]">
-                <div className="relative min-h-[22rem] overflow-hidden bg-[linear-gradient(135deg,#0f172a,#1e3a8a)]">
+            <article key={member.name} className="surface-card group grid overflow-hidden rounded-[2.4rem] shadow-card">
+              <div className="grid h-full gap-0 md:grid-cols-[0.9fr_1.1fr]">
+                <div className="relative min-h-[22rem] overflow-hidden bg-[linear-gradient(135deg,#0f172a,#1e3a8a)] md:h-full">
                   {member.image ? (
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="h-full min-h-[22rem] w-full object-cover object-[center_28%] transition duration-500 group-hover:scale-105"
+                      className={`h-full min-h-[22rem] w-full object-cover transition duration-500 group-hover:scale-105 ${member.imagePosition}`}
                     />
                   ) : (
                     <div className="flex h-full min-h-[22rem] items-center justify-center">
@@ -93,7 +95,7 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                <div className="flex flex-col p-6">
+                <div className="flex min-h-[22rem] flex-col p-6">
                   <div className="flex flex-wrap gap-2">
                     {member.tags.map((tag) => (
                       <span key={tag} className="theme-chip rounded-full px-3 py-1 text-xs font-extrabold">
